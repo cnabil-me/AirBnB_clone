@@ -1,51 +1,69 @@
 #!/usr/bin/python3
-"""Defines the BaseModel class."""
-import models
-from uuid import uuid4
+"""
+Module: base_model.py
+"""
+import uuid
 from datetime import datetime
+
+import models
 
 
 class BaseModel:
-    """Represents the BaseModel of the HBnB project."""
+    """
+    Base class for other classes to be used for the duration
+    of the AirBnB project
+    """
 
     def __init__(self, *args, **kwargs):
-        """Initialize a new BaseModel.
-
-        Args:
-            *args (any): Unused.
-            **kwargs (dict): Key/value pairs of attributes.
         """
-        tform = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
-        if len(kwargs) != 0:
-            for k, v in kwargs.items():
-                if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.strptime(v, tform)
-                else:
-                    self.__dict__[k] = v
-        else:
-            models.storage.new(self)
+        Initializes the instance of the class
+        :self: the object itself
+        :param args: unused
+        :param kwargs: dictionary of key/value pairs
+        :return: void
+        """
+
+        if len(kwargs) > 0:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                if key == "created_at" or key == "updated_at":
+                    value = datetime.fromisoformat(value)
+                setattr(self, key, value)
+            return
+
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+
+        models.storage.new(self)
+
+    def __str__(self):
+        """
+        Returns the string representation of the instance
+        :self: the object itself
+        :return: string representation of the instance
+        """
+        return "[{}] ({}) {}".format(
+            type(self).__name__, self.id, self.__dict__)
 
     def save(self):
-        """Update updated_at with the current datetime."""
-        self.updated_at = datetime.today()
+        """
+        update date and time for the current instance and saves
+        :self: the object itself
+        :return: void
+        """
+        self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """Return the dictionary of the BaseModel instance.
-
-        Includes the key/value pair __class__ representing
-        the class name of the object.
         """
-        rdict = self.__dict__.copy()
-        rdict["created_at"] = self.created_at.isoformat()
-        rdict["updated_at"] = self.updated_at.isoformat()
-        rdict["__class__"] = self.__class__.__name__
-        return rdict
+        :self: the object itself
+        returns a dictionary containing all keys/values
+        of __dict__ of the instance
+        """
+        dictionary_object = {**self.__dict__, '__class__': type(self).__name__}
+        dictionary_object['created_at'] = dictionary_object['created_at'].isoformat()
+        dictionary_object['updated_at'] = dictionary_object['updated_at'].isoformat()
 
-    def __str__(self):
-        """Return the print/str representation of the BaseModel instance."""
-        clname = self.__class__.__name__
-        return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
+        return dictionary_object

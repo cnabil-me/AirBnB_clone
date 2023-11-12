@@ -1,15 +1,16 @@
 #!/usr/bin/python3
-'''Write a class User that inherits from BaseModel'''
+"""
+Module: city.py
+Public class:
+City - a class that inherits from BaseModel and defines attributes for
+City objects.
+"""
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    '''City Class
-
-    Attributes:
-        Public class attributes:
-        state_id: string - empty string: it will be the State.id
-        name: string - empty string
-    '''
-    state_id = ''
-    name = ''
+    """
+    A class that inherits from BaseModel and defines attributes for City.
+    """
+    name = ""
+    state_id = ""

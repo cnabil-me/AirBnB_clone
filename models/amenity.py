@@ -1,13 +1,15 @@
 #!/usr/bin/python3
-'''Write a class User that inherits from BaseModel'''
+"""
+Module: amenity.py
+Public class:
+Amenity - a class that inherits from BaseModel and defines attributes for
+"""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    '''Amenity Class
-
-    Attributes:
-        Public class attributes:
-        name: string - empty string
-    '''
-    name = ''
+    """
+    A class that inherits from BaseModel and defines attributes for
+    Amenity objects.
+    """
+    name = ""

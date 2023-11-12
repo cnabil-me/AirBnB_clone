@@ -1,17 +1,24 @@
 #!/usr/bin/python3
-'''Write a class User that inherits from BaseModel'''
+"""
+Module: review.py
+
+Public class:
+    Review - a class that inherits from BaseModel and defines attributes for
+    Review objects.
+
+"""
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    '''Review Class
-
+    """
+    Review class that inherits from BaseModel
+    representing a review of a place/house.
     Attributes:
-        Public class attributes:
-        place_id: string - empty string: it will be the Place.id
-        user_id: string - empty string: it will be the User.id
-        text: string - empty string
-    '''
-    place_id = ''
-    user_id = ''
-    text = ''
+        text
+        user_id
+        place_id
+    """
+    text = ""
+    user_id = ""
+    place_id = ""

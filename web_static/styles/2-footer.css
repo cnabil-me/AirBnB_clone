@@ -4,6 +4,6 @@ footer {
 	display: grid;
 	place-content: center;
 	background-color: green;
-	inset: 0px;
+	inset: 0;
 	top: unset;
 }

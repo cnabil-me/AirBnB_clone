@@ -3,7 +3,7 @@ footer {
 	height: 60px;
 	border-top: 1px solid #CCCCCC;
 	position: fixed;
-	inset: 0px;
+	inset: 0;
 	top: unset;
 	display: grid;
 	place-content: center;
